@@ -1,0 +1,20 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true,
+        "mocha": true
+    },
+    "extends": [
+        "standard"
+    ],
+    "plugins": [ "eslint-plugin-html", "no-only-tests" ],
+    "parserOptions": {
+         "ecmaVersion": 13
+    },
+    "rules": {
+        "indent": ["error", 4],
+        "no-only-tests/no-only-tests": "error"
+    }
+}
