@@ -14,21 +14,41 @@ describe('Agent', function () {
     let mqttServer
     let httpServer
 
+    const creds = {
+        foo: {
+            hostname: 'localhost',
+            host: `localhost:${BrokerPort}`,
+            port: BrokerPort,
+            protocol: 'mqtt:',
+            username: 'user',
+            password: 'password',
+            clientId: 'foo'
+        },
+        bar: {
+            hostname: 'localhost',
+            host: `localhost:${BrokerPort}`,
+            port: BrokerPort,
+            protocol: 'mqtt:',
+            username: 'user',
+            password: 'password',
+            clientId: 'bar'
+        }
+    }
+
     before(async function () {
         aedes = new Aedes()
+        aedes.authenticate = function (client, username, password, cb) {
+            // console.log(client.id, username, password.toString('utf8'))
+            cb(null, true)
+        }
         mqttServer = net.createServer(aedes.handle)
         mqttServer.listen(BrokerPort, function () {
             // console.log(`test broker listening on ${BrokerPort}`)
         })
 
         const app = express()
-        app.get('/api/v1/team/:teamid/broker/:brokerid/creds', function (request, reply) {
-            reply.send({
-                hostname: 'localhost',
-                host: `localhost:${BrokerPort}`,
-                port: BrokerPort,
-                protocol: 'mqtt:'
-            })
+        app.get('/api/v1/team/:teamId/broker/:brokerId/creds', function (request, reply) {
+            reply.send(creds[request.params.brokerId])
         })
 
         httpServer = app.listen(APIPort, () => {
@@ -52,23 +72,17 @@ describe('Agent', function () {
     })
 
     it('should download credentials', async function () {
-        let a = new agent.Agent({
+        const a = new agent.Agent({
             forgeURL: `http://localhost:${APIPort}`,
             token: 'fft_foo',
             team: 'team',
-            broker: 'broker'
+            broker: 'foo'
         })
-        try {
-            await a.start()
-            await setTimeout(1000)
-            a.state().should.have.property('connected', true)
-            await a.stop()
-            a = undefined
-        } finally {
-            if (a) {
-                await a.stop()
-            }
-        }
+
+        await a.start()
+        await setTimeout(1000)
+        a.state().should.have.property('connected', true)
+        await a.stop()
     })
 
     it('should record topics', async function () {
@@ -76,7 +90,7 @@ describe('Agent', function () {
             forgeURL: `http://localhost:${APIPort}`,
             token: 'fft_foo',
             team: 'team',
-            broker: 'broker'
+            broker: 'bar'
         })
         try {
             await a.start()
@@ -90,11 +104,19 @@ describe('Agent', function () {
                 dup: false,
                 messageId: 42
             })
+            aedes.publish({
+                topic: 'hello',
+                payload: Buffer.from('bye'),
+                qos: 0,
+                retain: false,
+                dup: false,
+                messageId: 42
+            })
             await setTimeout(250)
             const state = a.state()
             state.should.have.property('topics')
             state.topics.should.have.property('hello/world')
-            console.log()
+            state.topics.should.have.property('hello')
             await a.stop()
             a = undefined
         } finally {
