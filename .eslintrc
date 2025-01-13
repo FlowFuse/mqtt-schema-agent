@@ -9,7 +9,7 @@
     "extends": [
         "standard"
     ],
-    "plugins": [ "eslint-plugin-html", "no-only-tests" ],
+    "plugins": [ "no-only-tests" ],
     "parserOptions": {
          "ecmaVersion": 13
     },
