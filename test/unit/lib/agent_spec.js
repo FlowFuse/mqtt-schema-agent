@@ -13,25 +13,28 @@ describe('Agent', function () {
     let aedes
     let mqttServer
     let httpServer
+    let lastClientId = ''
 
     const creds = {
         foo: {
-            hostname: 'localhost',
-            host: `localhost:${BrokerPort}`,
+            host: 'localhost',
             port: BrokerPort,
             protocol: 'mqtt:',
-            username: 'user',
-            password: 'password',
-            clientId: 'foo'
+            clientId: 'foo',
+            credentials: {
+                username: 'user',
+                password: 'password'
+            }
         },
         bar: {
-            hostname: 'localhost',
-            host: `localhost:${BrokerPort}`,
+            host: 'localhost',
             port: BrokerPort,
             protocol: 'mqtt:',
-            username: 'user',
-            password: 'password',
-            clientId: 'bar'
+            clientId: 'bar',
+            credentials: {
+                username: 'user',
+                password: 'password'
+            }
         }
     }
 
@@ -39,6 +42,7 @@ describe('Agent', function () {
         aedes = new Aedes()
         aedes.authenticate = function (client, username, password, cb) {
             // console.log(client.id, username, password.toString('utf8'))
+            lastClientId = client.id
             cb(null, true)
         }
         mqttServer = net.createServer(aedes.handle)
@@ -47,7 +51,7 @@ describe('Agent', function () {
         })
 
         const app = express()
-        app.get('/api/v1/team/:teamId/broker/:brokerId/creds', function (request, reply) {
+        app.get('/api/v1/teams/:teamId/brokers/:brokerId/credentials', function (request, reply) {
             reply.send(creds[request.params.brokerId])
         })
 
@@ -82,6 +86,7 @@ describe('Agent', function () {
         await a.start()
         await setTimeout(1000)
         a.state().should.have.property('connected', true)
+        lastClientId.should.eql('foo')
         await a.stop()
     })
 
@@ -96,6 +101,7 @@ describe('Agent', function () {
             await a.start()
             await setTimeout(1000)
             a.state().should.have.property('connected', true)
+            lastClientId.should.eql('bar')
             aedes.publish({
                 topic: 'hello/world',
                 payload: Buffer.from('HelloWorld'),
