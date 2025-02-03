@@ -1,9 +1,10 @@
+#!/usr/bin/env node
 const express = require('express')
 const bodyParser = require('body-parser')
 const { API } = require('./lib/api.js')
 const { healthz } = require('./lib/health.js')
 
-const port = 3500
+const port = process.env.FORGE_PORT || 3500
 
 const app = express()
 app.use(bodyParser.json({}))
@@ -16,6 +17,8 @@ const options = {
     broker: process.env.FORGE_BROKER_ID,
     token: process.env.FORGE_TEAM_TOKEN
 }
+
+// console.log(options)
 
 const api = new API(app, options)
 
