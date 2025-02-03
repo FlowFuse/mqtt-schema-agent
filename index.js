@@ -18,7 +18,7 @@ const options = {
     token: process.env.FORGE_TEAM_TOKEN
 }
 
-console.log(options)
+// console.log(options)
 
 const api = new API(app, options)
 
