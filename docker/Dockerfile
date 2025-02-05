@@ -2,13 +2,12 @@ FROM node:20-alpine
 
 ARG REGISTRY
 ARG REGISTRY_TOKEN
-ARG TAG
+ARG TAG=latest
 RUN if [[ ! -z "$REGISTRY_TOKEN" ]]; then echo "//$REGISTRY/:_authToken=$REGISTRY_TOKEN" >> ~/.npmrc ; fi
 RUN if [[ ! -z "$REGISTRY" ]] ; then npm config set @flowfuse:registry "https://$REGISTRY"; fi
 
 WORKDIR /usr/src/mqtt-schema-agent
-COPY package.json .
-RUN npm install --production --no-audit --no-fund
+RUN npm install --production --no-audit --no-fund @flowfuse/mqtt-schema-agent@$TAG
 
 LABEL org.label-schema.name="FlowFuse MQTT Schema Agent" \
     org.label-schema.url="https://flowfuse.com" \
