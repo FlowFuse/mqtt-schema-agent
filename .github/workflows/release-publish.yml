@@ -48,7 +48,7 @@ jobs:
           file: docker/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           push: true
-          platforms: linux/amd64, linux/arm64, linux/arm/v7
+          platforms: linux/amd64,linux/arm64
       - name: Publish README.md to Docker Hub
         uses: peter-evans/dockerhub-description@v4
         with:
