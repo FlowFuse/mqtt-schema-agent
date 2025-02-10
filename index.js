@@ -28,5 +28,6 @@ process.on('SIGTERM', async () => {
 })
 
 app.listen(port, () => {
+    console.log(`MQTT Schema Agent running - pid ${process.pid}`)
     console.log(`listening on port ${port}`)
 })
