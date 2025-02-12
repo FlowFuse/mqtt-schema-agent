@@ -55,4 +55,4 @@ jobs:
           repository: flowfuse/mqtt-schema-agent
           username: flowfuse
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          readme-filepath: ./docker/README.md
+          readme-filepath: ./README.md
