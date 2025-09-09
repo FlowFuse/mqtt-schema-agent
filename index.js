@@ -18,9 +18,25 @@ const options = {
     token: process.env.FORGE_TEAM_TOKEN
 }
 
+let runtime = -1
+
 // console.log(options)
 
 const api = new API(app, options)
+
+if (process.env.FORGE_TIMEOUT !== undefined && Number.isInteger(parseInt(process.env.FORGE_TIMEOUT))) {
+    console.log(`Auto shutdown in ${process.env.FORGE_TIMEOUT} hours`)
+    runtime = parseInt(process.env.FORGE_TIMEOUT) * 60 * 60 * 1000 //hours
+    setTimeout(async () => {
+        await api.selfShutdown()
+        // await api.stop(true)
+        // process.exit(0)
+    }, runtime)
+} else {
+    console.log(process.env.FORGE_TIMEOUT)
+    console.log(Number.isInteger(process.env.FORGE_TIMEOUT))
+    console.log(Number.isInteger(parseInt(process.env.FORGE_TIMEOUT)))
+}
 
 process.on('SIGTERM', async () => {
     await api.stop()
