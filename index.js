@@ -25,10 +25,15 @@ let runtime = -1
 const api = new API(app, options)
 
 if (process.env.FORGE_TIMEOUT !== undefined && Number.isInteger(parseInt(process.env.FORGE_TIMEOUT))) {
-    console.log(`Auto shutdown in ${process.env.FORGE_TIMEOUT} hours`)
-    runtime = parseInt(process.env.FORGE_TIMEOUT) * 60 * 60 * 1000 //hours
+    runtime = parseInt(process.env.FORGE_TIMEOUT) * 60 * 60 * 1000 // hours
+    console.log(`Auto shutdown in ${process.env.FORGE_TIMEOUT} hours (${runtime}) seconds`)
     setTimeout(async () => {
-        await api.selfShutdown()
+        console.log('Auto shutdown firing')
+        try {
+            await api.selfShutdown()
+        } catch (err) {
+            console.log(err)
+        }
         // await api.stop(true)
         // process.exit(0)
     }, runtime)
