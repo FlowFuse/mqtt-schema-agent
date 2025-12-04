@@ -1,0 +1,64 @@
+# Test files
+test/
+*.spec.js
+*.test.js
+
+# Development files
+.eslintrc
+.eslintrc.js
+.eslintrc.json
+.eslintignore
+.editorconfig
+
+# CI/CD
+.github/
+
+# Docker
+docker/
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation (keep README, LICENSE, CHANGELOG)
+docs/
+*.md
+!README.md
+!CHANGELOG.md
+
+# Coverage and reports
+coverage/
+.nyc_output/
+*.lcov
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build artifacts (if applicable)
+dist/
+build/
+
+# Misc
+.npmrc
+.yarnrc
