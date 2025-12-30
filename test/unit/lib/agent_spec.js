@@ -66,7 +66,7 @@ describe('Agent', function () {
             await mqttServer.close()
             await httpServer.close()
         } catch (ee) {
-            console.log(ee)
+            console.debug(ee)
         }
     })
 
