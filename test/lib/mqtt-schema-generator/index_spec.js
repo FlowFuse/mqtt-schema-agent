@@ -98,9 +98,9 @@ describe('Schema Generator', function () {
             const validate = validator.compile(schema)
             const valid = validate(value)
             if (!valid) {
-                console.log(`Value: ${JSON.stringify(value)}`)
-                console.log(`Schema: ${JSON.stringify(schema)}`)
-                console.log(`Errors: ${validate.errors}`)
+                console.debug(`Value: ${JSON.stringify(value)}`)
+                console.debug(`Schema: ${JSON.stringify(schema)}`)
+                console.debug(`Errors: ${validate.errors}`)
                 valid.should.be.true()
             }
         })
