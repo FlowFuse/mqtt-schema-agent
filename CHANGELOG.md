@@ -1,3 +1,7 @@
+### Release v1.1.1
+
+- Bump dependencies @hardillb
+
 ### Release v1.1.0
 
 - Team broker schema (#22) @hardillb
