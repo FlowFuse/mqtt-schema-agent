@@ -30,7 +30,7 @@
   "dependencies": {
     "body-parser": "^2.2.2",
     "express": "^5.2.1",
-    "got": "^11.8.6",
+    "got": "^14.6.6",
     "is-utf8": "^0.2.1",
     "mqtt": "^5.10.3"
   },
