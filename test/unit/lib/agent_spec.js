@@ -1,6 +1,6 @@
 const should = require('should')
 const express = require('express')
-const Aedes = require('aedes')
+const { Aedes } = require('aedes')
 const net = require('net')
 const agent = require('../../../lib/agent.js')
 const { setTimeout } = require('node:timers/promises')
@@ -39,7 +39,7 @@ describe('Agent', function () {
     }
 
     before(async function () {
-        aedes = new Aedes()
+        aedes = await Aedes.createBroker()
         aedes.authenticate = function (client, username, password, cb) {
             // console.log(client.id, username, password.toString('utf8'))
             lastClientId = client.id
