@@ -1,3 +1,5 @@
+# CHANGELOG
+
 ### Release v1.1.2
 
  - Bump aedes from 0.49.0 to 1.0.2 (#75)
