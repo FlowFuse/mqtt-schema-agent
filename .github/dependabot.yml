@@ -1,12 +1,14 @@
 version: 2
 updates:
   - package-ecosystem: "npm" # See documentation for possible values
+    open-pull-requests-limit: 30
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
     cooldown:
       default-days: 1
   - package-ecosystem: "github-actions"
+    open-pull-requests-limit: 30
     directory: "/"
     schedule:
       interval: "weekly"
