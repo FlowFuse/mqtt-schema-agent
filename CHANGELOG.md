@@ -1,4 +1,14 @@
-# CHANGELOG
+# Changelog
+
+## [1.1.3](https://github.com/FlowFuse/mqtt-schema-agent/compare/v1.1.2...v1.1.3) (2026-06-29)
+
+
+### Bug Fixes
+
+* Bump js-yaml from 4.1.1 to 4.2.0 ([#108](https://github.com/FlowFuse/mqtt-schema-agent/issues/108)) ([dd4c278](https://github.com/FlowFuse/mqtt-schema-agent/commit/dd4c278953034036276978670c981f99c1be552e))
+* Bump ws from 8.20.1 to 8.21.0 ([#109](https://github.com/FlowFuse/mqtt-schema-agent/issues/109)) ([43e52a2](https://github.com/FlowFuse/mqtt-schema-agent/commit/43e52a270ceaa3b1901b5cae40c7028e530f73f8))
+
+## CHANGELOG
 
 ### Release v1.1.2
 
